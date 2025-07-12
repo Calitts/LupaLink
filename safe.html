@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LupaLink</title>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Sunuwar&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="lupa.png" />
+    <script src="index.js"></script>
+  </head>
+
+  <body>
+    <section class="Window" id="safe">
+      <!-- HTML -->
+
+      <!-- Pop Ups -->
+
+      <div id="about-window">
+        <div class="about-pop ubuntu-regular">
+          <a class="pop-close" href="#">X</a>
+          <h2>Sobre</h2>
+          <p>Copiar o texto aqui</p>
+        </div>
+        <div class="about-pop pop-blur"></div>
+      </div>
+
+      <div id="settings-window">
+        <div class="settings-pop ubuntu-regular">
+          <a class="pop-close" href="#">X</a>
+          <h2>Configurações</h2>
+          <p>Copiar o texto aqui</p>
+        </div>
+        <div class="settings-pop pop-blur"></div>
+      </div>
+
+      <!-- Header -->
+
+      <header class="InfoPage" align="left">
+        <div class="top-content">
+          <a href="index.html"><img class="menu" src="home.png" alt="menu" /></a>
+        </div>
+        <div class="bot-content">
+          <a href="#settings-window">
+            <img class="settings" src="settings.png" alt="settings" />
+          </a>
+
+          <a href="#about-window">
+            <img
+              class="about"
+              src="https://cdn-icons-png.flaticon.com/512/1/1176.png"
+              alt="info"
+            />
+          </a>
+        </div>
+      </header>
+      <div class="blur"></div>
+
+      <!-- Main -->
+
+      <div id="fade" class="center-view"></div>
+      <div class="center-view noto-sans">
+        <div>
+          <h1>
+            Essa página é <span style="color: rgb(0, 213, 0)">SEGURA</span>
+          </h1>
+        </div>
+        <div id="box-right">
+          <h2>DIREITA</h2>
+          <p>Info</p>
+        </div>
+        <!-- <div id="box-right" class="blur"></div> -->
+        <div id="box-left" class="ubuntu-regular"><p>0/10</p></div>
+        <div class="blur-left" style="position: absolute"></div>
+        <button>Opção para Nerds</button>
+      </div>
+    </section>
+    <script>
+      data = getJSON();
+      document.getElementById("box-right").innerHTML = data.site;
+      displayJSON(data);
+    </script>
+  </body>
+</html>
