@@ -3,6 +3,10 @@
 function redirect(data) {
   sessionStorage.setItem("siteData", JSON.stringify(data));
   value = data.nota_total;
+  if (value == undefined) {
+    loadAnimation();
+    return;
+  }
   if (value.endsWith("Site seguro")) {
     window.location.href = "safe.html";
   } else if (value.endsWith("Site questionavel")) {
@@ -17,6 +21,8 @@ function sanatize(value) {
 }
 
 function loadAnimation() {
+  loadAnim = document.getElementById("loader"); 
+  textBox = document.getElementById("TextBox");
   topCloud = document.getElementById("top-cloud");
   botCloud = document.getElementById("bot-cloud");
   topCloudDiv = document.getElementById("top-wrapper");
@@ -26,19 +32,33 @@ function loadAnimation() {
   botCloud.classList.toggle("bot-close");
   topCloudDiv.classList.toggle("top-wrapper-active");
   botCloudDiv.classList.toggle("bot-wrapper-active");
+  textBox.classList.toggle("hidden");
+  loadAnim.classList.toggle("hidden");  
 }
 
 function fetchLink() {
-  loadAnimation();
+  vul = document.getElementById("vulnera").checked;
+  if (vul) {
+    vul = 1;
+  } else {
+    vul = 0;
+  }
+  
+  autohttps = document.getElementById("auto-https").checked;
   const input = document.getElementById("input-link");
+  if (input.value == "") {
+    return;
+  }
   let url = sanatize(input.value);
   let data;
   if (url != "") {
-    if (!url.startsWith("https://")) {
+    if (!url.startsWith("https://") && !autohttps) {
       url = "https://" + url;
     }
-    console.log(url);
-    data = fetch(`https://egapi.onrender.com/api/scan?url=${url}&verif=0`)
+    console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${vul}`);
+
+    loadAnimation();
+    data = fetch(`https://egapi.onrender.com/api/scan?url=${url}&verif=${vul}`)
       .then((res) => res.json())
       .then((data) => redirect(data))
       .catch((error) => console.log(error));
@@ -47,8 +67,23 @@ function fetchLink() {
 
 // Response Pages
 
-function nerds() {
-  
+function nerds(data) {
+  stringTagNerds = "";
+  stringInfoNerds = "";
+  websiteName = "";
+  console.log(data);
+
+  tagNerds = document.getElementById("inner-left-nerds");
+  infoNerds = document.getElementById("inner-right-nerds");
+  for (key in data) {
+    if (data.hasOwnProperty(key)) {
+      stringTagNerds += key + ": <br>";
+      stringInfoNerds += data[key] + "<br>"
+    }
+  }
+
+  infoNerds.innerHTML = stringInfoNerds;
+  tagNerds.innerHTML = stringTagNerds;
 }
 
 function getJSON() {
@@ -61,7 +96,7 @@ function getJSON() {
 function displayJSON(data) {
   stringTag = "";
   stringInfo = "";
-  websiteName = "";
+  websiteName = "o link";
   console.log(data);
 
   tag = document.getElementById("inner-left");
@@ -70,10 +105,16 @@ function displayJSON(data) {
     if (data.hasOwnProperty(key)) {
       switch (key) {
         case "ano_criacao":
+          if (data[key] == "Nao foi possivel obter o ano de criacao") {
+            break;
+          }
           stringTag += "Ano de Criação:<br>";
           stringInfo += data[key] + "<br>";
           break;
         case "tempo_de_existencia":
+          if (data[key] == "Nao foi possivel obter o tempo de criacao anos") {
+            break;
+          }
           stringTag += "Tempo de existência:<br>";
           stringInfo += data[key] + "<br>";
           break;
@@ -108,7 +149,7 @@ function displayJSON(data) {
           stringInfo += data[key] + "<br>";
           break;
         case "whois":
-          nerds();
+          nerds(data["whois"]);
           break;
         case "download":
           stringTag += "O site faz download:<br>";
@@ -138,12 +179,17 @@ function displayJSON(data) {
             stringInfo += data[key] + " veze<br>";
           }
           break;
+        case "ALERTA":
+          stringTag += "ALTO PERIGO: <br>";
+          stringInfo += data[key] + "<br>";
+          document.getElementById("nerd-button").classList.toggle("hidden");
+          break;
       }
     }
   }
 
   nota = data["nota_total"];
-  if (nota[1] == 0) {
+  if (nota[1] == '0') {
     nota = "10";
   } else {
     nota = nota[0];

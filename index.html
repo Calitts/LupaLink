@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LupaLink</title> 
+    <title>LupaLink</title>
     <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -197,13 +197,13 @@
           /></a>
           <h2>Configurações</h2>
           <p>Ativar verificação de vulnerabilidades</p>
-          <label id="vulnera" class="switch">
-            <input type="checkbox">
+          <label class="switch">
+            <input id="vulnera" type="checkbox">
             <span class="slider round"></span>
           </label>
-          <p>Ativar adição automática de "https://"</p>
-          <label id="auto-https" class="switch">
-            <input type="checkbox">
+          <p>Desativar adição automática de "https://"</p>
+          <label class="switch">
+            <input id="auto-https" type="checkbox">
             <span class="slider round"></span>
           </label>
         </div>
@@ -224,7 +224,7 @@
 
       <header class="InfoPage" align="left">
         <div class="top-content">
-          <img class="menu" src="home.png" alt="menu" />
+          <a href="index.html"><img class="menu" src="home.png" alt="menu" /></a>
         </div>
         <div class="bot-content">
           <a href="#settings-window">
@@ -244,7 +244,7 @@
 
       <!-- Main -->
 
-      <div class="TextBox" align="center">
+      <div id="TextBox" align="center">
         <img src="birdlogo.png" alt="logo" />
         <br />
         <div>
@@ -262,11 +262,18 @@
           <output id="out"></output>
         </div>
       </div>
+      <div id="loader" class="ubuntu-bold hidden">
+        <p>
+          Carregando...
+        </p>
+        <div class="loading"></div>
+      </div>
+
     </section>
     <script>
       input = document.getElementById("input-link");
       input.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && document.getElementById("input-link").value != "") {
           fetchLink();
         }
       });
