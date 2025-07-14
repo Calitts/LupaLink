@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head> 
+  <head>
     <title>LupaLink</title>
     <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -76,22 +76,148 @@
 
       <!-- Pop Ups -->
 
+      
       <div id="about-window">
         <div class="about-pop ubuntu-regular">
-          <a class="pop-close" href="#">X</a>
-          <h2>Sobre</h2>
-          <p>Copiar o texto aqui</p>
+          <a class="pop-close" href="#"
+            ><img alt="close" src="xcircleicon.png"
+          /></a>
+          <h3>Sobre</h3>
+          <p>
+            <h2>Como funciona?</h2>
+            1.1 Validação Inicial da URL<br />
+            Ao receber uma URL, a API realiza uma tentativa de conexão com o
+            endereço fornecido. Essa etapa inicial tem como finalidade verificar
+            a validade da URL e identificar possíveis erros críticos, como a
+            ausência de certificado SSL.<br />
+            1.2 Fragmentação da URL<br />
+            Após a conexão inicial, a URL é fragmentada em seus principais
+            componentes: domínio, parâmetros (query strings), protocolo, entre
+            outros. Uma função específica é responsável por resolver o domínio
+            até o endereço IP correspondente da aplicação.<br />
+            1.3 Extração de Características do Site<br />
+            Com os dados iniciais processados, a API inicia a coleta de diversas
+            características do site analisado. Nesse ponto, o comportamento da
+            API varia de acordo com o valor do parâmetro verif, recebido na
+            query da requisição:<br />
+            Caso verif = 1:<br />
+            A API realiza um processo de crawling, no qual o scanner acessa a
+            URL principal e coleta todas as URLs secundárias que contenham
+            parâmetros. Essas URLs são então analisadas em busca de possíveis
+            vulnerabilidades. Os resultados desses testes não são divulgados ao
+            usuário, com o objetivo de evitar o uso mal-intencionado da
+            ferramenta. A única informação retornada é se o site analisado é ou
+            não recomendado para o fornecimento de dados pessoais.<br />
+            <br />
+            <br />
+            Caso verif = 0:<br />
+            Toda a etapa de crawling e análise de vulnerabilidades é ignorada,
+            seguindo diretamente para as demais verificações.<br />
+            <br />
+            <br />
+            1.4 Consulta ao Abuse IPDB<br />
+            A API realiza, em seguida, uma consulta ao banco de dados Abuse
+            IPDB, de onde extrai informações como:<br />
+            Quantidade de denúncias (reports) associadas ao IP;<br />
+            <br />
+            <br />
+            Se o IP é público ou privado;<br />
+            <br />
+            <br />
+            Se o IP pertence a alguma lista de confiança (whitelist).<br />
+            <br />
+            <br />
+            Esses dados auxiliam na avaliação do risco associado ao endereço
+            analisado.<br />
+            1.5 Verificação de Hospedagem e Proteções<br />
+            A ferramenta também busca identificar onde o site está hospedado e
+            se há algum mecanismo de segurança presente, como firewalls ou
+            serviços de proteção de tráfego.<br />
+            1.6 Consulta ao Whois<br />
+            É realizada uma consulta ao serviço Whois, que fornece informações
+            relacionadas ao domínio do website, como:<br />
+            Nome e visibilidade do proprietário;<br />
+            <br />
+            <br />
+            Datas de criação e expiração do domínio;<br />
+            <br />
+            <br />
+            Status do registro.<br />
+            <br />
+            <br />
+            Esses elementos são considerados no cálculo da confiabilidade do
+            site.<br />
+            1.7 Avaliação do Site via Trustpilot<br />
+            Por fim, a API realiza uma busca na plataforma Trustpilot para
+            coletar a nota média atribuída pelos usuários ao site analisado.
+            Essa avaliação pública também contribui para a pontuação final.<br />
+            <br />
+            <br />
+          </p>
+          <h2>Quem somos?</h2>
+          <p>
+            Somos um grupo de estudantes do curso de Ciência da Computação da
+            Universidade Federal do Ceará – Campus Quixadá, envolvidos no
+            projeto de extensão “Autodefesa Digital: convivendo com armadilhas
+            na internet”. Nosso objetivo é proporcionar aos usuários da internet
+            uma ferramenta fácil e intuitiva para verificar links suspeitos,
+            promovendo uma navegação mais segura no ambiente digital. O projeto
+            é ministrado pela professora Diana Braga e conta com a dedicação dos
+            seguintes integrantes:<br />
+            <br />
+            Cauã Evangelista Pitta<br />
+            Cesário Porto Magalhães<br />
+            Diogo Assunção da Silva<br />
+            Eloisa Valentine Castelan<br />
+            João David Brandão<br />
+            João Eduardo Rabelo<br />
+            <br />
+            <br />
+            Acreditamos que a segurança digital deve ser acessível a todos. Por
+            isso, trabalhamos para desenvolver soluções que contribuam com a
+            conscientização e a proteção dos usuários frente aos riscos da
+            internet, sempre com foco na simplicidade, utilidade e impacto
+            social.<br />
+            <br />
+            <br />
+          </p>
+          <h2>Contato:</h2>
+          <p>
+            https://github.com/davidbranndev<br />
+            https://github.com/calitts<br />
+          </p>
         </div>
         <div class="about-pop pop-blur"></div>
       </div>
 
       <div id="settings-window">
         <div class="settings-pop ubuntu-regular">
-          <a class="pop-close" href="#">X</a>
+          <a class="pop-close" href="#"
+            ><img alt="close" src="xcircleicon.png"
+          /></a>
           <h2>Configurações</h2>
-          <p>Copiar o texto aqui</p>
+          <p>Ativar verificação de vulnerabilidades</p>
+          <label id="vulnera" class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <p>Ativar adição automática de "https://"</p>
+          <label id="auto-https" class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
         </div>
         <div class="settings-pop pop-blur"></div>
+      </div>
+
+      <div id="nerd">
+        <a class="nerd-close" href="#"><img src="xcircleicon.png"></a>
+        <div class="nerd-pop ubuntu-regular">
+          <table>
+
+          </table>
+        </div>
+        <!-- <div class="nerd-pop nerd-blur"></div> -->
       </div>
 
       <!-- Header -->
