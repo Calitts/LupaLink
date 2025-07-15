@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LupaLink</title> 
+    <title>LupaLink</title>
     <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -78,10 +78,10 @@
 
       
       <div id="about-window">
+        <a class="pop-close" href="#"
+          ><img alt="close" src="xcircleicon.png"
+        /></a>
         <div class="about-pop ubuntu-regular">
-          <a class="pop-close" href="#"
-            ><img alt="close" src="xcircleicon.png"
-          /></a>
           <h3>Sobre</h3>
           <p>
             <h2>Como funciona?</h2>
@@ -191,10 +191,10 @@
       </div>
 
       <div id="settings-window">
+        <a class="pop-close" href="#"
+          ><img alt="close" src="xcircleicon.png"
+        /></a>
         <div class="settings-pop ubuntu-regular">
-          <a class="pop-close" href="#"
-            ><img alt="close" src="xcircleicon.png"
-          /></a>
           <h2>Configurações</h2>
           <p>Ativar verificação de vulnerabilidades</p>
           <label class="switch">
@@ -209,15 +209,6 @@
         </div>
         <div class="settings-pop pop-blur"></div>
       </div>
-
-      <div id="nerd">
-        <a class="nerd-close" href="#"><img src="xcircleicon.png"></a>
-        <div class="nerd-pop ubuntu-regular">
-          <table>
-
-          </table>
-        </div>
-        <!-- <div class="nerd-pop nerd-blur"></div> -->
       </div>
 
       <!-- Header -->
@@ -267,6 +258,13 @@
           Carregando...
         </p>
         <div class="loading"></div>
+      </div>
+
+      <div id="tip-box">
+        <h1 class="ubuntu-bold">O QUE FAZER?</h1>
+        <p class="ubuntu-light">
+          Cole um link na caixa de texto para escanear-lo e receba uma pontuação entre 0-10 sobre o quão seguro é este link!
+        </p>
       </div>
 
     </section>

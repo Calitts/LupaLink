@@ -20,7 +20,11 @@ function sanatize(value) {
   return value;
 }
 
-function loadAnimation() {
+function loadAnimation(error = null) {
+  if (error != null) {
+    errorBox = document.getElementById("tip-box");
+    errorBox.innerHTML = `<h1 style='color: red;'>ERROR</h1> <p>${error}<p>`;
+  }
   loadAnim = document.getElementById("loader"); 
   textBox = document.getElementById("TextBox");
   topCloud = document.getElementById("top-cloud");
@@ -61,7 +65,7 @@ function fetchLink() {
     data = fetch(`https://egapi.onrender.com/api/scan?url=${url}&verif=${vul}`)
       .then((res) => res.json())
       .then((data) => redirect(data))
-      .catch((error) => console.log(error));
+      .catch((error) => loadAnimation(error));
   }
 }
 

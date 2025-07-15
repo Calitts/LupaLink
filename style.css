@@ -196,17 +196,19 @@ section {
 #inner-left-nerds {
     float: left;
     padding-bottom: 20px;
+    width: 49%;
 }
 
 #inner-right-nerds {
     float: right;
+    width: 49%;
 }
 
 .pop-close {
     z-index: 11;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+    position: fixed;
+    top: 10%;
+    right: 10%;
 
     img {
         width: 50px;
@@ -325,6 +327,25 @@ input:checked+.slider:before {
     visibility: hidden;
 }
 
+/* Animação Diferente */
+/* HTML: <div class="loader"></div>
+.loader {
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 30px;
+    animation: l1 1s linear infinite alternate;
+}
+
+.loader:before {
+    content: "Loading..."
+}
+
+@keyframes l1 {
+    to {
+        opacity: 0}
+} */
+
+
 #loader {
     position: absolute;
     margin-left: 46vw;
@@ -429,6 +450,17 @@ input:checked+.slider:before {
 
 }
 
+#tip-box {
+    position: absolute;
+    height: 200px;
+    width: 300px;
+    right: 100px;
+    bottom: 200px;
+    text-align: center;
+    background-color: #fafafa;
+    border-radius: 20px;
+    box-shadow: 10px 8px 10px 5px rgba(0, 0, 0, 0.1);
+}
 
 
 /* Página Resposta */
@@ -484,7 +516,7 @@ div.center-view {
     text-align: center;
     padding: 10px;
     /* backdrop-filter: blur(25px); */
-    background-color: rgb(111, 111, 111);
+    /* background-color: rgb(111, 111, 111); */
     color: black;
     align-content: center;
 }
@@ -594,6 +626,53 @@ div.center-view {
     transform: translate(0px 500px);
     transition: all 2s;
 }
+
+
+.js {
+    background:
+        radial-gradient(closest-side, white 79%, transparent 80% 100%, white 0),
+        conic-gradient(hotpink calc(var(--progress-value) * 1%), pink 0);
+    animation: js-progress 2s 1 forwards;
+}
+
+.js::before {
+    animation: js-progress 2s 1 forwards; 
+}
+
+progress {
+    visibility: hidden;
+    width: 0;
+    height: 0; 
+}
+
+@property --progress-value {
+    syntax: '<integer>';
+    inherits: false;
+    initial-value: 0; 
+}
+
+@keyframes js-progress {
+    to {
+        --progress-value: 10;
+    }
+}
+
+.progress-bar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    /* to center the percentage value */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar::before {
+    counter-reset: percentage var(--progress-value);
+    content: counter(percentage) '%';     
+}
+
 
 
 /* Extra */
