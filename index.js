@@ -4,7 +4,7 @@ function redirect(data) {
   sessionStorage.setItem("siteData", JSON.stringify(data));
   value = data.nota_total;
   if (value == undefined) {
-    loadAnimation();
+    loadAnimation("Site não encontrado! <br> <br> Certifique-se que o link foi colocado corretamente");
     return;
   }
   if (value.endsWith("Site seguro")) {
@@ -21,31 +21,36 @@ function sanatize(value) {
 }
 
 function loadAnimation(error = null) {
-  if (error != null) {
-    errorBox = document.getElementById("tip-box");
-    errorBox.innerHTML = `<h1 style='color: red;'>ERROR</h1> <p>${error}<p>`;
-  }
+  errorBox = document.getElementById("tip-box");
   loadAnim = document.getElementById("loader"); 
   textBox = document.getElementById("TextBox");
   topCloud = document.getElementById("top-cloud");
   botCloud = document.getElementById("bot-cloud");
   topCloudDiv = document.getElementById("top-wrapper");
   botCloudDiv = document.getElementById("bot-wrapper");
-
+  
   topCloud.classList.toggle("top-close");
   botCloud.classList.toggle("bot-close");
   topCloudDiv.classList.toggle("top-wrapper-active");
   botCloudDiv.classList.toggle("bot-wrapper-active");
   textBox.classList.toggle("hidden");
   loadAnim.classList.toggle("hidden");  
+  
+  if (error != null) {
+    errorBox.classList.toggle("hidden");
+    errorBox.innerHTML = `<h1 class='ubuntu-bold' style='color: red;'>ERRO!</h1> <p class="ubuntu-light">${error}<p>`;
+    return;
+  }
+
+  errorBox.classList.toggle("hidden");
 }
 
 function fetchLink() {
   vul = document.getElementById("vulnera").checked;
   if (vul) {
-    vul = 1;
+    verif = 1;
   } else {
-    vul = 0;
+    verif = 0;
   }
   
   autohttps = document.getElementById("auto-https").checked;
@@ -54,19 +59,19 @@ function fetchLink() {
     return;
   }
   let url = sanatize(input.value);
-  let data;
-  if (url != "") {
-    if (!url.startsWith("https://") && !autohttps) {
-      url = "https://" + url;
-    }
-    console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${vul}`);
-
-    loadAnimation();
-    data = fetch(`https://egapi.onrender.com/api/scan?url=${url}&verif=${vul}`)
-      .then((res) => res.json())
-      .then((data) => redirect(data))
-      .catch((error) => loadAnimation(error));
+  sessionStorage.setItem("vulCheck", vul);
+  sessionStorage.setItem("autoCheck", autohttps);
+  if (!url.startsWith("https://") && autohttps) {
+    url = "https://" + url;
   }
+  console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`);
+
+  loadAnimation();
+  data = fetch(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`)
+    .then((res) => res.json())
+    .then((data) => redirect(data))
+    .catch((error) => loadAnimation(error));
+
 }
 
 // Response Pages
@@ -98,9 +103,9 @@ function getJSON() {
 }
 
 function displayJSON(data) {
-  stringTag = "";
-  stringInfo = "";
-  websiteName = "o link";
+  let stringTag = "";
+  let stringInfo = "";
+  let websiteName = "o link";
   console.log(data);
 
   tag = document.getElementById("inner-left");
@@ -164,9 +169,7 @@ function displayJSON(data) {
           }
           break;
         case "site":
-          websiteName = data[key]
-            .replace("https://", "")
-            .replace("http://", "");
+          websiteName = data[key].replace("https://", "").replace("http://", "");
           break;
         case "nota_dos_usuarios":
           if (data[key] == null) {
@@ -180,7 +183,7 @@ function displayJSON(data) {
           if (data[key] != "1") {
             stringInfo += data[key] + " vezes<br>";
           } else {
-            stringInfo += data[key] + " veze<br>";
+            stringInfo += data[key] + " vez<br>";
           }
           break;
         case "ALERTA":
@@ -201,6 +204,16 @@ function displayJSON(data) {
 
   nota = parseInt(nota);
   nota = 10 - nota;
+  let bar;
+  if (data["nota_total"].endsWith("Site seguro")) {
+    bar = document.querySelector(".safe-bar");
+  } else if (data["nota_total"].endsWith("Site questionavel")) {
+    bar = document.querySelector(".sus-bar");
+  } else {
+    bar = document.querySelector(".unsafe-bar");
+  }
+
+  bar.style.setProperty("--progress-value", `${nota * 10}`);
 
   info.innerHTML = stringInfo;
   tag.innerHTML = stringTag;
