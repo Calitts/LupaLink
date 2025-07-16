@@ -77,22 +77,26 @@ function fetchLink() {
 // Response Pages
 
 function nerds(data) {
-  stringTagNerds = "";
-  stringInfoNerds = "";
-  websiteName = "";
-  console.log(data);
+  try {
+    stringTagNerds = "";
+    stringInfoNerds = "";
+    websiteName = "";
+    console.log(data);
 
-  tagNerds = document.getElementById("inner-left-nerds");
-  infoNerds = document.getElementById("inner-right-nerds");
-  for (key in data) {
-    if (data.hasOwnProperty(key)) {
-      stringTagNerds += key + ": <br>";
-      stringInfoNerds += data[key] + "<br>"
+    tagNerds = document.getElementById("inner-left-nerds");
+    infoNerds = document.getElementById("inner-right-nerds");
+    for (key in data) {
+      if (data.hasOwnProperty(key)) {
+        stringTagNerds += key + ": <br>";
+        stringInfoNerds += data[key] + "<br>"
+      }
     }
-  }
 
-  infoNerds.innerHTML = stringInfoNerds;
-  tagNerds.innerHTML = stringTagNerds;
+    infoNerds.innerHTML = stringInfoNerds;
+    tagNerds.innerHTML = stringTagNerds;
+  } catch (error) {
+
+  }
 }
 
 function getJSON() {

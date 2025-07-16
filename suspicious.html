@@ -26,13 +26,15 @@
 
       <!-- Pop Ups -->
 
+      
       <div id="about-window">
+        <a class="pop-close" href="#"
+          ><img alt="close" src="xcircleicon.png"
+        /></a>
         <div class="about-pop ubuntu-regular">
-          <a class="pop-close" href="#"
-            ><img alt="close" src="xcircleicon.png"
-          /></a>
+          <img src="logo.png" />
           <h3>Sobre</h3>
-          <h2>Como funciona?</h2>
+          <h2 style="color: rgb(0, 36, 155)">Como funciona?</h2>
           <p>
             1.1 Validação Inicial da URL<br />
             Ao receber uma URL, a API realiza uma tentativa de conexão com o
@@ -103,7 +105,7 @@
             <br />
             <br />
           </p>
-          <h2>Quem somos?</h2>
+          <h2 style="color: rgb(0, 167, 185)">Quem somos?</h2>
           <p>
             Somos um grupo de estudantes do curso de Ciência da Computação da
             Universidade Federal do Ceará – Campus Quixadá, envolvidos no
@@ -130,8 +132,8 @@
             <br />
             <br />
           </p>
-          <h2>Contato:</h2>
-          <p>
+          <h2 style="color: rgb(0, 49, 92)">Contato:</h2>
+          <p style="color: rgb(0, 142, 213); cursor: pointer; width: 20%">
             https://github.com/davidbranndev<br />
             https://github.com/calitts<br />
           </p>
@@ -140,19 +142,19 @@
       </div>
 
       <div id="settings-window">
+        <a class="pop-close" href="#"
+          ><img alt="close" src="xcircleicon.png"
+        /></a>
         <div class="settings-pop ubuntu-regular">
-          <a class="pop-close" href="#"
-            ><img alt="close" src="xcircleicon.png"
-          /></a>
           <h2>Configurações</h2>
           <p>Ativar verificação de vulnerabilidades</p>
           <label class="switch">
-            <input id="vulnera" type="checkbox">
+            <input id="vulnera" type="checkbox" />
             <span class="slider round"></span>
           </label>
-          <p>Desativar adição automática de "https://"</p>
+          <p>Ativar adição automática de "https://"</p>
           <label class="switch">
-            <input id="auto-https" type="checkbox">
+            <input id="auto-https" type="checkbox" checked="true" />
             <span class="slider round"></span>
           </label>
         </div>
@@ -215,8 +217,8 @@
                   <progress id="safe-prog" min="0" max="100" value="50"></progress>
                 </div>
               </div>
-              <div class="blur-left" style="position: absolute"></div>
               <p id="nota">0/10</p>
+              <div class="blur-left" style="position: absolute"></div>
             </div>
             <ul>
               <li id="inner-left">Tag</li>
