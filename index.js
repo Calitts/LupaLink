@@ -4,7 +4,9 @@ function redirect(data) {
   sessionStorage.setItem("siteData", JSON.stringify(data));
   value = data.nota_total;
   if (value == undefined) {
-    loadAnimation("Site não encontrado! <br> <br> Certifique-se que o link foi colocado corretamente");
+    loadAnimation(
+      "Site não encontrado! <br> <br> Certifique-se que o link foi colocado corretamente"
+    );
     return;
   }
   if (value.endsWith("Site seguro")) {
@@ -22,20 +24,20 @@ function sanatize(value) {
 
 function loadAnimation(error = null) {
   errorBox = document.getElementById("tip-box");
-  loadAnim = document.getElementById("loader"); 
+  loadAnim = document.getElementById("loader");
   textBox = document.getElementById("TextBox");
   topCloud = document.getElementById("top-cloud");
   botCloud = document.getElementById("bot-cloud");
   topCloudDiv = document.getElementById("top-wrapper");
   botCloudDiv = document.getElementById("bot-wrapper");
-  
+
   topCloud.classList.toggle("top-close");
   botCloud.classList.toggle("bot-close");
   topCloudDiv.classList.toggle("top-wrapper-active");
   botCloudDiv.classList.toggle("bot-wrapper-active");
   textBox.classList.toggle("hidden");
-  loadAnim.classList.toggle("hidden");  
-  
+  loadAnim.classList.toggle("hidden");
+
   if (error != null) {
     errorBox.classList.toggle("hidden");
     errorBox.innerHTML = `<h1 class='ubuntu-bold' style='color: red;'>ERRO!</h1> <p class="ubuntu-light">${error}<p>`;
@@ -53,7 +55,7 @@ function fetchLink() {
     verif = 0;
   }
   
-  autohttps = document.getElementById("auto-https").checked;
+  // autohttps = document.getElementById("auto-https").checked;
   const input = document.getElementById("input-link");
   if (input.value == "") {
     return;
@@ -64,20 +66,24 @@ function fetchLink() {
   if (!url.startsWith("https://") && autohttps) {
     url = "https://" + url;
   }
-  //console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`);
+  // console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`);
 
   loadAnimation();
-  data = fetch(`https://egapi.onrender.com/api/`, {
+  data = fetch(`https://egapi.onrender.com/api/scan`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json", 
+    },
     body: JSON.stringify({
       url: url,
-      verif: verif
-    })
-   })
+      verif: verif,
+    }),
+  })
     .then((res) => res.json())
     .then((data) => redirect(data))
     .catch((error) => loadAnimation(error));
 
+  console.log(data);
 }
 
 // Response Pages
@@ -94,15 +100,13 @@ function nerds(data) {
     for (key in data) {
       if (data.hasOwnProperty(key)) {
         stringTagNerds += key + ": <br>";
-        stringInfoNerds += data[key] + "<br>"
+        stringInfoNerds += data[key] + "<br>";
       }
     }
 
     infoNerds.innerHTML = stringInfoNerds;
     tagNerds.innerHTML = stringTagNerds;
-  } catch (error) {
-
-  }
+  } catch (error) {}
 }
 
 function getJSON() {
@@ -179,7 +183,9 @@ function displayJSON(data) {
           }
           break;
         case "site":
-          websiteName = data[key].replace("https://", "").replace("http://", "");
+          websiteName = data[key]
+            .replace("https://", "")
+            .replace("http://", "");
           break;
         case "nota_dos_usuarios":
           if (data[key] == null) {
@@ -206,7 +212,7 @@ function displayJSON(data) {
   }
 
   nota = data["nota_total"];
-  if (nota[1] == '0') {
+  if (nota[1] == "0") {
     nota = "10";
   } else {
     nota = nota[0];
