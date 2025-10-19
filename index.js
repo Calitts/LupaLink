@@ -48,24 +48,24 @@ function loadAnimation(error = null) {
 }
 
 function fetchLink() {
-  // vul = document.getElementById("vulnera").checked;
-  // if (vul) {
-  //   verif = 1;
-  // } else {
-  //   verif = 0;
-  // }
-  let verif = 0;
+  vul = document.getElementById("vulnera").checked;
+  if (vul) {
+    verif = 1;
+  } else {
+    verif = 0;
+  }
+  
   // autohttps = document.getElementById("auto-https").checked;
   const input = document.getElementById("input-link");
   if (input.value == "") {
     return;
   }
   let url = sanatize(input.value);
-  // sessionStorage.setItem("vulCheck", vul);
-  // sessionStorage.setItem("autoCheck", autohttps);
-  // if (!url.startsWith("https://") && autohttps) {
-  //   url = "https://" + url;
-  // }
+  sessionStorage.setItem("vulCheck", vul);
+  sessionStorage.setItem("autoCheck", autohttps);
+  if (!url.startsWith("https://") && autohttps) {
+    url = "https://" + url;
+  }
   // console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`);
 
   loadAnimation();

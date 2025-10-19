@@ -277,9 +277,9 @@
           fetchLink();
         }
       });
-
-      //vul.checked = sessionStorage.getItem("vulCheck");
-      //autohttps.checked = sessionStorage.getItem("autoCheck");
+      
+      vul = sessionStorage.getItem("vulCheck");
+      autohttps = sessionStorage.getItem("autoCheck");
 
       var checkboxes = document.querySelectorAll(
         "input[type=checkbox][name=settings]"
