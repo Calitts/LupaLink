@@ -64,10 +64,16 @@ function fetchLink() {
   if (!url.startsWith("https://") && autohttps) {
     url = "https://" + url;
   }
-  console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`);
+  //console.log(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`);
 
   loadAnimation();
-  data = fetch(`https://egapi.onrender.com/api/scan?url=${url}&verif=${verif}`)
+  data = fetch(`https://egapi.onrender.com/api/`, {
+    method: "POST",
+    body: JSON.stringify({
+      url: url,
+      verif: verif
+    })
+   })
     .then((res) => res.json())
     .then((data) => redirect(data))
     .catch((error) => loadAnimation(error));
